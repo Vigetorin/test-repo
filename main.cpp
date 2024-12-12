@@ -180,6 +180,44 @@ bool fullSizeNoShadowsTest()
     return true;
 }
 
+// тесты для body_size
+
+// проверка обычной свечи
+bool bodySizeDefaultTest()
+{
+    // проверка зелёной свечи
+    if (Candle(0.0, 5.0, -1.0, 3.0).body_size() != 3.0)
+        return false;
+    // проверка красной свечи
+    if (Candle(3.0, 5.0, -1.0, 0.0).body_size() != 3.0)
+        return false;
+    return true;
+}
+
+// проверка свечи с пустым телом
+bool bodySizeZeroBodyTest()
+{
+    // свеча с тенями
+    if (Candle(1.0, 5.0, -1.0, 1.0).body_size() != 0.0)
+        return false;
+    // свеча без теней
+    if (Candle(1.0, 1.0, 1.0, 1.0).body_size() != 0.0)
+        return false;
+    return true;
+}
+
+// проверка свечи без теней
+bool bodySizeNoShadowsTest()
+{
+    // проверка зелёной свечи
+    if (Candle(0.0, 3.0, 0.0, 3.0).body_size() != 3.0)
+        return false;
+    // проверка красной свечи
+    if (Candle(3.0, 3.0, 0.0, 0.0).body_size() != 3.0)
+        return false;
+    return true;
+}
+
 void initTests()
 {
     tests.push_back(bodyContainsDefaultTest);
@@ -191,6 +229,9 @@ void initTests()
     tests.push_back(fullSizeDefaultTest);
     tests.push_back(fullSizeZeroBodyTest);
     tests.push_back(fullSizeNoShadowsTest);
+    tests.push_back(bodySizeDefaultTest);
+    tests.push_back(bodySizeZeroBodyTest);
+    tests.push_back(bodySizeNoShadowsTest);
 }
 
 int launchTests()
