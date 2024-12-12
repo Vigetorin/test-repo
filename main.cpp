@@ -218,6 +218,26 @@ bool bodySizeNoShadowsTest()
     return true;
 }
 
+// тесты для is_red
+
+// проверка зелёной свечи
+bool isRedGreenCandleTest()
+{
+    return !Candle(0.0, 5.0, -1.0, 3.0).is_red();
+}
+
+// проверка красной свечи
+bool isRedRedCandleTest()
+{
+    return Candle(3.0, 5.0, -1.0, 0.0).is_red();
+}
+
+// проверка свечи с пустым телом
+bool isRedZeroBodyTest()
+{
+    return !Candle(1.0, 5.0, -1.0, 1.0).is_red();
+}
+
 void initTests()
 {
     tests.push_back(bodyContainsDefaultTest);
@@ -232,6 +252,9 @@ void initTests()
     tests.push_back(bodySizeDefaultTest);
     tests.push_back(bodySizeZeroBodyTest);
     tests.push_back(bodySizeNoShadowsTest);
+    tests.push_back(isRedGreenCandleTest);
+    tests.push_back(isRedRedCandleTest);
+    tests.push_back(isRedZeroBodyTest);
 }
 
 int launchTests()
