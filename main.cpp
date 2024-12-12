@@ -238,6 +238,26 @@ bool isRedZeroBodyTest()
     return !Candle(1.0, 5.0, -1.0, 1.0).is_red();
 }
 
+// тесты для is_green
+
+// проверка зелёной свечи
+bool isGreenGreenCandleTest()
+{
+    return Candle(0.0, 5.0, -1.0, 3.0).is_green();
+}
+
+// проверка красной свечи
+bool isGreenRedCandleTest()
+{
+    return !Candle(3.0, 5.0, -1.0, 0.0).is_green();
+}
+
+// проверка свечи с пустым телом
+bool isGreenZeroBodyTest()
+{
+    return !Candle(1.0, 5.0, -1.0, 1.0).is_green();
+}
+
 void initTests()
 {
     tests.push_back(bodyContainsDefaultTest);
@@ -255,6 +275,9 @@ void initTests()
     tests.push_back(isRedGreenCandleTest);
     tests.push_back(isRedRedCandleTest);
     tests.push_back(isRedZeroBodyTest);
+    tests.push_back(isGreenGreenCandleTest);
+    tests.push_back(isGreenRedCandleTest);
+    tests.push_back(isGreenZeroBodyTest);
 }
 
 int launchTests()
