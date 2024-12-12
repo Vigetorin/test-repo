@@ -73,11 +73,83 @@ bool bodyContainsNoShadowsTest()
     return true;
 }
 
+// тесты для contains
+
+// проверка обычной свечи
+bool containsDefaultTest()
+{
+    Candle candleGreen(0.0, 5.0, -1.0, 3.0);
+    Candle candleRed(3.0, 5.0, -1.0, 0.0);
+    for (const Candle& candle : { candleGreen, candleRed })
+    {
+        // значение внутри тела
+        if (!candle.contains(1.2))
+            return false;
+        // значения внутри теней
+        if (!candle.contains(-0.5) || !candle.contains(3.9))
+            return false;
+        // значения по краям теней
+        if (!candle.contains(-1.0) || !candle.contains(5.0))
+            return false;
+        // значения вне свечи
+        if (candle.contains(-1.7) || candle.contains(7.6))
+            return false;
+    }
+    return true;
+}
+
+// проверка свечи с пустым телом
+bool containsZeroBodyTest()
+{
+    Candle candle(1.0, 5.0, -1.0, 1.0);
+    // проверка единственного значения внутри тела
+    if (!candle.contains(1.0))
+        return false;
+    // проверка значений вне тела, но внутри свечи
+    if (!candle.contains(0.2) || !candle.contains(5.0))
+        return false;
+    // значения вне свечи
+    if (candle.contains(-1.7) || candle.contains(7.6))
+        return false;
+    // пустая свеча без теней
+    Candle candleEmpty(1.0, 1.0, 1.0, 1.0);
+    // значение внутри свечи
+    if (!candleEmpty.contains(1.0))
+        return false;
+    // внешние значения
+    if (candleEmpty.contains(0.8) || candleEmpty.contains(1.7))
+        return false;
+    return true;
+}
+
+// проверка свечи без теней
+bool containsNoShadowsTest()
+{
+    Candle candleGreen(0.0, 3.0, 0.0, 3.0);
+    Candle candleRed(3.0, 3.0, 0.0, 0.0);
+    for (const Candle& candle : { candleGreen, candleRed })
+    {
+        // значение внутри свечи
+        if (!candle.contains(1.2))
+            return false;
+        // значения по краям свечи
+        if (!candle.contains(0.0) || !candle.contains(3.0))
+            return false;
+        // значения вне свечи
+        if (candle.contains(-1.7) || candle.contains(7.6))
+            return false;
+    }
+    return true;
+}
+
 void initTests()
 {
     tests.push_back(bodyContainsDefaultTest);
     tests.push_back(bodyContainsZeroBodyTest);
     tests.push_back(bodyContainsNoShadowsTest);
+    tests.push_back(containsDefaultTest);
+    tests.push_back(containsZeroBodyTest);
+    tests.push_back(containsNoShadowsTest);
 }
 
 int launchTests()
